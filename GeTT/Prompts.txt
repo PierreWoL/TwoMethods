@@ -1,0 +1,84 @@
+1. Table Entity Type Generation:
+
+Prerequisite: Given a table, the given table will be serialized using the following rules:
+(i) Randomly sample 5 rows;
+(ii) Truncate cells exceeding 50 tokens and append "...";
+
+EXAMPLE: Table about Movies
+
+| Movie ID | Title                 | Director       | Cast                                      | Description                                                                                     |
+|----------|-----------------------|----------------|-------------------------------------------|-------------------------------------------------------------------------------------------------|
+| 1        | The Shawshank Redemption | Frank Darabont | Tim Robbins, Morgan Freeman               | Two imprisoned men bond over a number of years, finding solace and eventual redemption...       |
+| 2        | The Godfather         | Francis Ford Coppola | Marlon Brando, Al Pacino, James Caan      | The aging patriarch of an organized crime dynasty transfers control of his clandestine empire...|
+| 3        | The Dark Knight       | Christopher Nolan | Christian Bale, Heath Ledger, Aaron Eckhart | When the menace known as the Joker wreaks havoc and chaos on Gotham, Batman accepts the...       |
+| 4        | Schindler's List      | Steven Spielberg | Liam Neeson, Ralph Fiennes, Ben Kingsley  | In German-occupied Poland during WWII, industrialist Oskar Schindler gradually becomes...       |
+| 5        | Pulp Fiction          | Quentin Tarantino | John Travolta, Uma Thurman, Samuel L. Jackson | The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits...   |
+| 6        | Forrest Gump          | Robert Zemeckis | Tom Hanks, Robin Wright, Gary Sinise      | The presidencies of Kennedy and Johnson, the Vietnam War, the Watergate scandal and other...    |
+| 7        | Inception             | Christopher Nolan | Leonardo DiCaprio, Joseph Gordon-Levitt   | A thief who steals corporate secrets through the use of dream-sharing technology is given...    |
+| 8        | Fight Club            | David Fincher   | Brad Pitt, Edward Norton, Helena Bonham Carter | An insomniac office worker and a devil-may-care soap maker form an underground fight club...    |
+| 9        | The Matrix            | Lana Wachowski, Lilly Wachowski | Keanu Reeves, Laurence Fishburne          | When a beautiful stranger leads computer hacker Neo to a forbidding underworld, he discovers... |
+| 10       | Goodfellas            | Martin Scorsese | Robert De Niro, Ray Liotta, Joe Pesci     | The story of Henry Hill and his life in the mob, covering his relationship with his wife...     |
+
+
+Serialized table (in csv format in the prompt):
+| Movie ID | Title                 | Director       | Cast                                      | Description                                                                                     |
+|----------|-----------------------|----------------|-------------------------------------------|-------------------------------------------------------------------------------------------------|
+| 4        | Schindler's List      | Steven Spielberg | Liam Neeson, Ralph Fiennes, Ben Kingsley  | In German-occupied Poland during WWII, industrialist Oskar Schindler gradually becomes...       |
+| 6        | Forrest Gump          | Robert Zemeckis | Tom Hanks, Robin Wright, Gary Sinise      | The presidencies of Kennedy and Johnson, the Vietnam War, the Watergate scandal and other...    |
+| 1        | The Shawshank Redemption | Frank Darabont | Tim Robbins, Morgan Freeman               | Two imprisoned men bond over a number of years, finding solace and eventual redemption...       |
+| 9        | The Matrix            | Lana Wachowski, Lilly Wachowski | Keanu Reeves, Laurence Fishburne          | When a beautiful stranger leads computer hacker Neo to a forbidding underworld, he discovers... |
+| 7        | Inception             | Christopher Nolan | Leonardo DiCaprio, Joseph Gordon-Levitt   | A thief who steals corporate secrets through the use of dream-sharing technology is given...    |
+
+ 
+Prompt:
+
+[System message]: You are an AI language model specialized in inferring table entity types. Given a table, identify the entity in each row and infer the overall entity type they represent.
+
+
+[User message]: Table:
+| Movie ID | Title                 | Director       | Cast                                      | Description                                                                                     |
+|----------|-----------------------|----------------|-------------------------------------------|-------------------------------------------------------------------------------------------------|
+| 4        | Schindler's List      | Steven Spielberg | Liam Neeson, Ralph Fiennes, Ben Kingsley  | In German-occupied Poland during WWII, industrialist Oskar Schindler gradually becomes...       |
+| 6        | Forrest Gump          | Robert Zemeckis | Tom Hanks, Robin Wright, Gary Sinise      | The presidencies of Kennedy and Johnson, the Vietnam War, the Watergate scandal and other...    |
+| 1        | The Shawshank Redemption | Frank Darabont | Tim Robbins, Morgan Freeman               | Two imprisoned men bond over a number of years, finding solace and eventual redemption...       |
+| 9        | The Matrix            | Lana Wachowski, Lilly Wachowski | Keanu Reeves, Laurence Fishburne          | When a beautiful stranger leads computer hacker Neo to a forbidding underworld, he discovers... |
+| 7        | Inception             | Christopher Nolan | Leonardo DiCaprio, Joseph Gordon-Levitt   | A thief who steals corporate secrets through the use of dream-sharing technology is given...    |
+
+ Please infer the entity type of the table.
+[System message]: Do not add any EXTRA comments. Output only the name of entity type.
+
+
+
+2. Type Hierarchy Construction:
+Prerequisite: given a root entity and a list of entity types 
+EXAMPLE: 
+root entity: Thing
+entity list:["Soccer Match Summary Data", "Soccer Player Data", "Soccer Player Profiles", "Soccer Player Statistics", "Soccer Player Stats", "Soccer Player Stats and Information", "Soccer Team Data", "Soccer Team Stats", "Soccer/Football Club Attributes", "Sporting Event Results", "Sports Competition Results", "Used Car Listings", "Used Cars Listing", "Used Cars Listings", "Vehicle Catalog", "Video Game Listings", "Video Game Sales Data", "Video Game Support Information", "Video Game Transactions", "Video Game User Activity", "Video Games", "Volcanic Eruption Events", "Volcano Data", "Volcano Dataset", "Volcano Eruption Events", "NBA Player"]
+
+Prompt:
+
+
+
+Part 1 -- demonstrations prompt: 
+
+<messages of previous iteration>
+[Assistant message]: The current taxonomy is: <current taxonomy>
+[User message]: Check: Is the remaining entity type list empty?
+[Assistant message]: Answer: No.
+[User message]:  Then, let’s find all the 𝑘-th level entity types from the remaining entity list.
+[Assistant message]: The current taxonomy is: <taxonomy after adding entity types at the  𝑘-th level>
+<beginning of next iteration>
+
+
+Part 2 -- CoL iteration prompt:
+
+
+[User message]: You are an expert in constructing a taxonomy from a list of entity types. Build a taxonomy whose root type is 'Thing' with the given list of entity types. The format of the generated taxonomy is: 1. Parent Type 1.1 Child Type. Do not change any entity type names when building the taxonomy. Do not add any comments. There should be one and only one root node of the taxonomy. All entity types in the entity type list must appear in the taxonomy and don't add any entity types that are not in the list. Let's do it step by step.
+Entity type list: ["Soccer Match Summary Data", "Soccer Player Data", "Soccer Player Profiles", "Soccer Player Statistics", "Soccer Player Stats", "Soccer Player Stats and Information", "Soccer Team Data", "Soccer Team Stats", "Soccer/Football Club Attributes", "Sporting Event Results", "Sports Competition Results", "Used Car Listings", "Used Cars Listing", "Used Cars Listings", "Vehicle Catalog", "Video Game Listings", "Video Game Sales Data", "Video Game Support Information", "Video Game Transactions", "Video Game User Activity", "Video Games", "Volcanic Eruption Events", "Volcano Data", "Volcano Dataset", "Volcano Eruption Events", "NBA Player"]
+
+[User message]: Then, let's find all the -level entity types from the remaining list.
+[Assistant message]: The current taxonomy is: 
+[User message]: Check: Is the remaining entity list empty?
+[Assistant message]: Answer: Yes./No.
+
+

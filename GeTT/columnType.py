@@ -13,7 +13,7 @@ llm = OllamaLLM(
 dataset = "GDS"
 
 
-data_path = f"E:/Project/CurrentDataset/datasets/{dataset}/Test/"
+data_path = f"datasets/{dataset}/Test/"
 #sample_names_csv = pd.read_csv(f"sample_selection_{dataset}.csv")
 #sample_names = sample_names_csv["Table_name"]
 sample_names = [i for i in os.listdir(data_path) if i.endswith(".csv")]

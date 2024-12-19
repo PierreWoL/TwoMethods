@@ -222,7 +222,7 @@ def filter(response_text, messages, root, gt_entities_list, filter_scores=None, 
         return messages
 
     else:
-        """for edge in each_edges:
+        for edge in each_edges:
             if edge[0].lower() in gt_entities_set and edge[1].lower() in gt_entities_set:
                 revised_edges.append(edge)
             else:
@@ -261,7 +261,7 @@ def filter(response_text, messages, root, gt_entities_list, filter_scores=None, 
        
         #print("revised_edges",revised_entities_set, revised_edges)
 
-        """
+
         currenttaxo = "The current taxonomy is:\n"
         print("revised_edges", each_entities_set, each_edges)
         taxo = construct_taxonomy(root.lower(), each_entities_set,each_edges)
@@ -434,7 +434,6 @@ def run(client, taxo_name, fold, taxo_path, model, save_path_model_response, num
         entities = subgraph['entity_list']
         random.shuffle(entities)
         relations = subgraph['relation_list'] if 'relation_list' in subgraph.keys() else {}
-        # TODO I think here you need to replace to root
         root = subgraph['root']
         if new_prompt:
             prompt_list.append(prompt_temp + "Concepts: " + '; '.join(entities) + "\n" + "Relationships: ")
@@ -473,9 +472,9 @@ def run(client, taxo_name, fold, taxo_path, model, save_path_model_response, num
         json.dump(prompt_list, f)
     with open(save_path + 'ground_truth_list.json', 'w') as f:
         json.dump(ground_truth_list, f)
-    end_time = time.time()  # 记录结束时间
+    end_time = time.time()
 
-    elapsed_time = end_time - start_time  # 计算运行时间
+    elapsed_time = end_time - start_time
     print(f"all inferring running time: {elapsed_time:.4f} s")
     return ground_truth_list, prompt_list
 
@@ -501,7 +500,7 @@ if __name__ == '__main__':
     parser.add_argument('--llm', type=str, default='qwen2.5:14b') #qwen2.5:14b  gpt-3.5-turbo-16k gpt-4-1106-preview
     args = parser.parse_args()
     if "gpt" in args.llm:
-        args.openai_key =  "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"
+        args.openai_key = ""
         client = OpenAI(api_key=args.openai_key)
         print("currently using gpt")
     else:
@@ -556,13 +555,14 @@ if __name__ == '__main__':
 
     # print(taxo_name, taxo_path, model, numofExamples, save_path_model_response, demo_path)
     if args.run == 'True':
-        #filter_path = f'./Layer/filter/{args.filter_model}/{taxo_name}/{fold}/scores.json'
-        #filter_scores_list = open(filter_path, 'r').readlines()
-        #filter_scores_list = [json.loads(filter_scores) for filter_scores in filter_scores_list]
-        #filter_topk = args.filter_topk
+        filter_path = f'./Layer/filter/{args.filter_model}/{taxo_name}/{fold}/scores.json'
+        filter_scores_list = open(filter_path, 'r').readlines()
+        filter_scores_list = [json.loads(filter_scores) for filter_scores in filter_scores_list]
+        filter_topk = args.filter_topk
         run(client, taxo_name, fold, taxo_path, model, save_path_model_response, numofExamples=numofExamples,
             new_prompt=new_prompt, ChainofLayers=ChainofLayers, file_name='test.json',
-            iteratively=iteratively) #, filter_mode=args.filter_mode, filter_topk=args.filter_topk,filter_scores_list=filter_scores_list
+            iteratively=iteratively, filter_mode=args.filter_mode,
+            filter_topk=args.filter_topk,filter_scores_list=filter_scores_list) #
 
         # eval(taxo_name, taxo_path, model, save_path_model_response, numofExamples=numofExamples, new_prompt=new_prompt,
         # ChainofLayers=ChainofLayers, iteratively=iteratively, filter_mode=filter_mode, filter_topk=filter_topk,

@@ -295,7 +295,7 @@ def column_gts(dataset):
     gt_cluster_dict: dictionary of index: label
     like  {Topclass1:{'ColLabel1': 0, 'ColLabel2': 1, ...}}
     """
-    groundTruth_file = "E:\Project\CurrentDataset\datasets\WDC\column_gt.csv"
+    groundTruth_file = "datasets\WDC\column_gt.csv"
     ground_truth_df = pd.read_csv(groundTruth_file, encoding='latin1')
     Superclass = ground_truth_df['TopClass'].dropna().unique()
 

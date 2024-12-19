@@ -4,7 +4,7 @@ from collections import Counter
 import pandas as pd
 
 
-def dataframe_to_markdown(df: pd.DataFrame, selectedHeader = None) -> str:
+def dataframe_to_sample(df: pd.DataFrame, selectedHeader = None) -> str:
     header_transfer = list(df.columns)
     if selectedHeader is not None:
         header_transfer = [f'**{selectedHeader}**' if item == selectedHeader else item for item in header_transfer]
@@ -30,7 +30,17 @@ def dataframe_to_mdd(df: pd.DataFrame, selectedHeader=None, max_tokens=15, keep_
         markdown_str += row_str.rstrip() + "\n"
     return markdown_str
 
-
+def sample(df: pd.DataFrame, max_tokens=50, keep_token= 50):
+    if len(df) <= 5:
+        new_df = df.copy()
+    else:
+        new_df = df.sample(n=5, random_state=42)
+    for index, row in new_df.iterrows():
+        for col, value in row.items():
+            if isinstance(value, str) and len(value.split()) > max_tokens:
+                value = " ".join(value.split()[:keep_token]) + "..."
+                new_df.loc[index, col] = value
+    return new_df
 def most_frequent(list1, isFirst=True):
     """
     count the most frequent occurring annotated label in the cluster

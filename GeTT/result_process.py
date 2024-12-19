@@ -15,7 +15,7 @@ dataset = "GDS"
 model ="qwen2.5"
 fold = "qwen14"
 with open(
-        f"E:/SILLM/results/taxo_ChainofLayers_filter_zero/{dataset}/{model}/{fold}/10shots/model_response.json") as f:
+        f"results/taxo_ChainofLayers_filter_zero/{dataset}/{model}/{fold}/10shots/model_response.json") as f:
     result = json.load(f)
 #print(len(result), )
 """for result_i in result:
@@ -150,8 +150,8 @@ for i in range(0, 5):  # range(len(result))
 
 
 
-    groundTruth = f"E:/Project/CurrentDataset/datasets/{dataset}/groundTruth.csv"
-    dataPath = f"E:/Project/CurrentDataset/datasets/{dataset}/Test/"
+    groundTruth = f"datasets/{dataset}/groundTruth.csv"
+    dataPath = f"datasets/{dataset}/Test/"
     test_path = f"Result/{dataset}/Detail/COL_Zero/{fold}/{str(i)}/"
     mkdir(test_path)
     with open(os.path.join(test_path, "tree.pkl"),"wb") as f:

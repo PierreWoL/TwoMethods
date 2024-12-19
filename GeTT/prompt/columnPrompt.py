@@ -192,17 +192,3 @@ def column_annotationLlama(given_table, col_name, LLM_model: OllamaLLM, table_me
     NE_variations = get_llama_answer(LLM_model, NEType_prompt)
     return dataType, columnType, NE_variations
 
-
-### Example here
-"""ollama_base_url = "http://localhost:11434/"
-llm = OllamaLLM(
-    base_url=ollama_base_url,
-    model='llama3.1'
-)
-table = pd.read_csv("E:\SILLM\open_data\Test\\restaurant_Top250.csv")
-print(table.columns)
-dataType, columnType, NE_variations = column_annotationLlama(table, "Segment_Category", llm, table_mention=True)
-print(f"dataType:{dataType} \n columnType:{columnType} \n , NE_variations: {NE_variations} \n ")
-"""
-# apiKey = ""
-# gpt = OpenAI(api_key=apiKey)

@@ -16,13 +16,13 @@ llm = OllamaLLM(
     model= model_name
 )"""
 
-openai_key = "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"
+openai_key = ""
 client = OpenAI(api_key=openai_key)
 
 datasets = ["GDS","WDC"]
 for dataset in datasets:
-    data_path = f"E:/Project/CurrentDataset/datasets/{dataset}/Test/"
-    groundTruth = pd.read_csv(f"E:\Project\CurrentDataset\datasets\{dataset}\groundTruth.csv")
+    data_path = f"datasets/{dataset}/Test/"
+    groundTruth = pd.read_csv(f"datasets\{dataset}\groundTruth.csv")
     file_class_dict = dict(zip(groundTruth['fileName'], groundTruth['class']))
 
     data_names = [i for i in os.listdir(data_path) if i.endswith(".csv") and i in file_class_dict.keys()]

@@ -8,22 +8,22 @@ def gen_ChainofLayers_prompt(taxo_name, demo_path, numofExamples=5):
     with open(demo_path + taxo_name + '/test.json', 'r') as f:
         demos = f.readlines()
         demos = [json.loads(demo) for demo in demos][0:numofExamples]
-    instruction_line = ("Build a taxonomy whose root concept is <root>" #'Thing' (parent of everything)
-                        " with the given list of entities. The format of "
-                        "the generated taxonomy is: 1. Parent Concept 1.1 Child Concept. Do not change any entity "
-                        "names when building the taxonomy. Do not add any comments. There should be one and only one "
-                        "root node of the taxonomy. All entities in the entity list must appear in the taxonomy and "
-                        "don't add any entities that are not in the entity list.\n")
+    instruction_line = ("Build a taxonomy whose root entity type is <root>" #'Thing' (parent of everything)
+                        " with the given list of entity types. The format of "
+                        "the generated taxonomy is: 1. Parent Type 1.1 Child Type. Do not change any entity "
+                        "type names when building the taxonomy. Do not add any comments. There should be one and only one "
+                        "root node of the taxonomy. All entities in the entity type list must appear in the taxonomy and "
+                        "don't add any entity types that are not in the entity type list.\n")
     # 这里不变
-    entity_list_line = "Entity list: <entity_list>\n"
+    entity_list_line = "Entity type list: <entity_list>\n"
 
     Stepbysetp = "Let's do it step by step.\n"
-    Firststep = ("First, the entity in the first level of the taxonomy is <root>."#'Thing' (parent of everything)
+    Firststep = ("First, the entity type in the first level of the taxonomy is <root>."#'Thing' (parent of everything)
                  "\nThe current taxonomy is:\n")
-    checkno = "Check: Is the remaining entity list empty?\nAnswer: No.\n"
-    checkyes = "Check: Is the remaining entity list empty?\nAnswer: Yes.\nThe taxonomy is complete.\n"
+    checkno = "Check: Is the remaining entity type list empty?\nAnswer: No.\n"
+    checkyes = "Check: Is the remaining entity type list empty?\nAnswer: Yes.\nThe taxonomy is complete.\n"
     currenttaxo = "The current taxonomy is:\n"
-    Nstep = "Then, let's find all the <N>-level entities from the remaining entity list.\n"
+    Nstep = "Then, let's find all the <N>-level entity types from the remaining list.\n"
 
     def construct_taxonomy_with_depth(root, entity_list, relation_list, current_depth=1):
         taxo = construct_taxonomy(root, entity_list, relation_list)
@@ -159,27 +159,27 @@ def gen_ChainofLayers_prompt_iterative(taxo_name, demo_path, numofExamples=5):
         demos = [json.loads(demo) for demo in demos][0:numofExamples]
         #print("demos",len(demos))
 
-    instruction_line = ("Build a taxonomy whose root concept is <root> with the given list of entities. The format of "
-                        "the generated taxonomy is: 1. Parent Concept 1.1 Child Concept. Do not change any entity "
-                        "names when building the taxonomy. Do not add any comments. There should be one and only one "
-                        "root node of the taxonomy. All entities in the entity list must appear in the taxonomy and "
-                        "don't add any entities that are not in the entity list.\n")
+    instruction_line = ("Build a taxonomy whose root type is <root> with the given list of entity types. The format of "
+                        "the generated taxonomy is: 1. Parent Type 1.1 Child Type. Do not change any entity "
+                        "type names when building the taxonomy. Do not add any comments. There should be one and only one "
+                        "root node of the taxonomy. All entity types in the entity list must appear in the taxonomy and "
+                        "don't add any entity types that are not in the entity type list.\n")
 
     entity_list_line = "Entity list: <entity_list>\n"
 
     Stepbysetp = "Let's do it step by step.\n"
 
-    Firststep = "First, the entity in the first level of the taxonomy is <root>.\nThe current taxonomy is:\n"
+    Firststep = "First, the entity type in the first level of the taxonomy is <root>.\nThe current taxonomy is:\n"
 
-    checkno = "Check: Is the remaining entity list empty?\n"
+    checkno = "Check: Is the remaining entity type list empty?\n"
     ansno = "Answer: No.\n"
-    checkyes = "Check: Is the remaining entity list empty?\n"
+    checkyes = "Check: Is the remaining entity type list empty?\n"
     ansyes = "Answer: Yes.\nThe taxonomy is complete.\n"
 
     # currenttaxo = "Expand the taxonomy with the remaining entity list.\nThe current taxonomy is:\n"
     currenttaxo = "The current taxonomy is:\n"
 
-    Nstep = "Then, let's find all the <N>-level entities from the remaining entity list.\n"
+    Nstep = "Then, let's find all the <N>-level entity types from the remaining list.\n"
 
     role_user_temp = {"role": "user", "content": '<USER>'}
     role_assistant_temp = {"role": "assistant", "content": '<ASSISTANT>'}
