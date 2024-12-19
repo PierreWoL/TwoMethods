@@ -15,8 +15,7 @@ pip install -r requirements
 
 ### Datasets
 All datasets, including GoogleSearch(for testing running time), WDC: 602 tables from Web Data Commons
-and GDS: 660 selected tables from Google Dataset Search, can be downloaded via this link
-https://drive.google.com/file/d/1nW2zvw_m9RL_GZQetSQYC6Sp_WyPt0ef/view?usp=drive_link.
+and GDS: 660 selected tables from Google Dataset Search, can be downloaded in this repo.
 
 ### Running the offline pre-training pipeline:
 
