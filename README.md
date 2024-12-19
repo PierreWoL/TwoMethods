@@ -1,5 +1,4 @@
-# SILM
-
+# EmTT and GeTT
 
 ### Training Requirements
 
