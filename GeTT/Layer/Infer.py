@@ -501,7 +501,7 @@ if __name__ == '__main__':
     parser.add_argument('--llm', type=str, default='qwen2.5:14b') #qwen2.5:14b  gpt-3.5-turbo-16k gpt-4-1106-preview
     args = parser.parse_args()
     if "gpt" in args.llm:
-        args.openai_key =  ""
+        args.openai_key =  "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"
         client = OpenAI(api_key=args.openai_key)
         print("currently using gpt")
     else:

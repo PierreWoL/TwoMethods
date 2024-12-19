@@ -151,7 +151,7 @@ if __name__ == '__main__':
     parser.add_argument('--numofExamples', type=int, default=0)
     parser.add_argument('--openai_key', type=str)
     args = parser.parse_args()
-    args.openai_key = ""
+    args.openai_key = "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"
     #client = OpenAI(api_key=args.openai_key)
     ollama_base_url = "http://localhost:11434/"
     client = OllamaLLM(
