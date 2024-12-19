@@ -57,13 +57,7 @@ For the second proportion (0.3 from percentage_crops), generate 0 views.
 * `--save_model`: whether to save the vectors in a pickle file, which is then used in the online processing
 `swavEncoder.py` is used to encode tables, it provides a simple example at the end.
 
-### P1-P4
-
-The main entry point is  `main.py`.   Scripts:.
-* Script for Phase 1 type inference is `P1.sh`, the baseline script is `runBaselineP1.sh`.
-* Script for Phase 2 conceptual attribute inference and Phase 3 hierarchy inference is `P23.sh`, 
-the baseline script is 'runBaselineP23.sh'.
-* Script for Phase 4 conceptual attribute relationship search is `P4.sh`.
+### P1-P3
 Hyperparameters
 * `--dataset`: dataset name 
 * `--embed`: name of used language name, only support sbert, bert. roberta
@@ -88,7 +82,6 @@ Hyperparameters
 this as all inputting all tables
 * `--P1Embed`: the embedding file for P1 
 * `--P23Embed`: the embedding file for P2 & P3 
-* `--P4Embed`: the embedding file for P4
 
 
 ### End to end evaluation
