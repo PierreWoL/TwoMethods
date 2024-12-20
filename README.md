@@ -83,9 +83,17 @@ this as all inputting all tables
 * `--P23Embed`: the embedding file for P2 & P3 
 
 
-### End to end evaluation
+### Table 1: Empirical Evaluation of Sampling Fractions \((p_1, p_2)\)
+
+| Sampling Fractions \((p_1, p_2)\) | Rand Index | Purity | Notes                          |
+|-----------------------------------|------------|--------|--------------------------------|
+| Initial Setting \((0.5, 0.5)\)    | 0.747      | 0.752  | Aligned with Starmie's setting |
+| \((0.5, 0.3)\)                    | 0.865      | 0.870  | **Best Performance**           |
+| \((1.0, 0.5)\)                    | 0.813      | 0.832  |                                |
+| \((0.8, 0.4)\)                    | 0.805      | 0.810  |                                |
+| \((0.6, 0.3)\)                    | 0.819      | 0.825  |                                |
+| \((0.5, 0.25)\)                   | 0.841      | 0.845  |                                |
+| \((0.3, 0.3)\)                    | 0.774      | 0.772  |                                |
 
 
-### Running time
-The main entry point is `main.py`. Script for training is `Runtime.sh`.
-* `--tableNumber`: the number of tables when testing the running time.
+ 
